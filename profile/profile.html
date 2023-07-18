@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main-style.css">
+    <script src="../js/functions.js" type="text/javascript" defer></script>
+    <script src="../js/api.js" type="text/javascript" defer></script>
+    <script src="../js/menu.js" type="text/javascript" defer></script>
+    <script src="../js/footer.js" type="text/javascript" defer></script>
+    
+    
+
+    <link rel="stylesheet" type="text/css" href="profile.css">
+    <script src="profile.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-left-alignment-container"></div>
+        <button id="nav-open-btn"><div></div><div></div><div></div></button>
+        <nav id="nav"></nav>
+    </header>
+    <div class="content-container">
+        <div id="profile-info-section">
+            <div class="headline-and-profile-pic-container">
+                <div class="profile-pic"><span></span></div>
+                <div class="headline-container">
+                    <input type="text" class="hidden" id="display-name-input" placeholder="Anzeigename">
+                    <h1 class="wireframe" id="display-name">Displayname</h1>
+                    <span class="subheadline wireframe" id="username">@Username</span>
+                </div>
+            </div>
+            <section>
+                <article>
+                    <h2>Beschreibung</h2>
+                    <textarea type="text" class="hidden" id="description-input"></textarea>
+                    <p class="wireframe" id="description">Lorem ipsum dolor sit amet?</p>
+                </article>
+            </section>
+            <div class="flex-container col hidden" id="change-password-container">
+                <label class="flex-container col">
+                    <span>Neues Passwort:</span>
+                    <input class="textbox" type="password" id="password-input">
+                </label>
+                <label class="flex-container col">
+                    <span>Neues Passwort wiederholen:</span>
+                    <input class="textbox" type="password" id="password-repeat-input">
+                </label>
+            </div>
+        </div>
+        <section>
+            <h2>Posts:</h2>
+            <article id="post-grid" class="post-grid"></article>
+        </section>
+
+    </div>
+    <footer>
+    </footer>
+</body>
+</html>

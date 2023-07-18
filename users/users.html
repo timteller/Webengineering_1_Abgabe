@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutzer</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main-style.css">
+    <script src="../js/functions.js" type="text/javascript" defer></script>
+    <script src="../js/api.js" type="text/javascript" defer></script>
+    <script src="../js/menu.js" type="text/javascript" defer></script>
+    <script src="../js/footer.js" type="text/javascript" defer></script>
+    
+    
+
+    <link rel="stylesheet" type="text/css" href="users.css">
+    <script src="users.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <header>
+        <button id="nav-open-btn"><div></div><div></div><div></div></button>
+        <nav id="nav"></nav>
+    </header>
+    <div class="content-container">
+        <label class="search-container">
+            <span>Suchen:</span>
+            <input id="search-input" type="text" class="textbox" placeholder="Nutzername">
+        </label>
+        <table class="list-table" id="users-table">
+            <tr>
+                <th>Nutzername</th>
+                <th>Anzeigename</th>
+                <th class="hide-on-small">Beschreibung</th>
+                <th class="hide-on-medium">Dabei seit</th>
+            </tr>   
+        </table>
+        <table class="list-table hidden" id="search-table">
+            <tr>
+                <th>Nutzername</th>
+                <th>Anzeigename</th>
+                <th class="hide-on-small">Beschreibung</th>
+                <th class="hide-on-medium">Dabei seit</th>
+            </tr>   
+        </table>
+    </div>
+    <template id="user-row-template">
+        <tr>
+            <td class="username">Test</td>
+            <td class="display-name">Test</td>
+            <td class="description hide-on-small">Test</td>
+            <td class="created hide-on-medium">Test</td>
+        </tr>
+    </template>
+
+    <footer>
+    </footer>
+</body>
+</html>

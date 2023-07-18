@@ -1,0 +1,19 @@
+#post-titel {
+    font-size: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.sectionTitle {
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+
+section {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    /* border-bottom: 1px solid var(--dark); */
+}
+

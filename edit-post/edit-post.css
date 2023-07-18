@@ -1,0 +1,106 @@
+.drag-drop-target {
+    width: 100%;
+    height: 5px;
+    background-color: transparent;
+    border: 1px solid rgba(0,0,0,0.5);
+    margin: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.drag-drop-target.dragover {
+    transition: 0.5s;
+    background-color: rgba(90, 90, 255, 0.1);
+    height: 35px;
+}
+
+.drag-drop-target::after {
+    content: ' ';
+    font-size: 10px;
+    transition: 1s;
+}
+
+.drag-drop-target.dragover::after {
+    font-size: 12px;
+}
+
+
+
+.post-element {
+    min-height: 25px;
+}
+
+.element-inputs {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-textarea {
+    padding: 5px;
+    background-color: transparent;
+    min-width: 100%;
+    max-width: 100%;
+    font-size: 18px;
+}
+
+.element-inputs .flex-container {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-textbox {
+    padding: 5px;
+    border: 1px solid var(--dark);
+    border-radius: 5px;
+    background-color: transparent;
+    flex: 3;
+    font-size: 18px;
+}
+
+.main-title-input {
+    width: 100%;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    /* border-left: 10px solid black; */
+    -webkit-tap-highlight-color: transparent;
+    padding: 5px;
+}
+
+.element-preview {
+    position: relative;
+    font-size: 18px;
+}
+
+.edit-btn-style, .delete-btn-style{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.element-preview p {
+    margin-bottom: 10px;
+}
+

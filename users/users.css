@@ -1,0 +1,14 @@
+.search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container span {
+    flex: 1;
+}
+
+.search-container input {
+    flex: 6;
+}

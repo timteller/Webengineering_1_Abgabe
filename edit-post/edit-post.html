@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bearbieten</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main-style.css">
+    <script src="../js/functions.js" type="text/javascript" defer></script>
+    <script src="../js/api.js" type="text/javascript" defer></script>
+    <script src="../js/menu.js" type="text/javascript" defer></script>
+    <script src="../js/footer.js" type="text/javascript" defer></script>
+    
+    
+
+    <link rel="stylesheet" type="text/css" href="edit-post.css">
+    <script src="edit-post.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-left-alignment-container">
+            <button class="button header-btn" id="leave-btn">Verlassen</button>
+            <button class="button pos header-btn" id="save-btn">Speichern</button>
+            <button class="button neg header-btn" id="post-delete-btn">Löschen</button>
+        </div>
+        <button id="nav-open-btn"><div></div><div></div><div></div></button>
+        <nav id="nav"></nav>
+    </header>
+    <div class="content-container">
+        <div class="post-elements-container">
+            <input type="text" class="main-title-input" placeholder="Titel"/>
+            <div class="drag-drop-target" id="first-drag-drop-target"></div>
+        </div>
+        <div class="flex-container row">
+            <button class="button" id="add-text">add Text</button>
+            <button class="button" id="add-headline">add H2</button>
+            <button class="button" id="add-img">add Img</button>
+        </div>
+    </div>
+
+    <template id="text-element-template">
+        <div class="post-element" draggable="true">
+            <div class="element-inputs">
+                <button class="delete-btn-style delete-btn">🗑️</button>
+                <textarea class="input-textarea"></textarea>
+            </div>
+            <div class="element-preview hidden">
+                <button class="edit-btn-style edit-btn">✏️</button>
+            </div>
+        </div>
+        <div class="drag-drop-target"></div>
+    </template>
+
+    <template id="image-element-template">
+        <div class="post-element" draggable="true">
+            <div class="element-inputs">
+                <label class="flex-container row">
+                    <span>src:</span>
+                    <input type="text" class="input-textbox url" placeholer="src"/>
+                </label>
+                <label class="flex-container row">
+                    <span>caption:</span>
+                    <input type="text" class="input-textbox caption" placeholer="caption"/>
+                </label>
+                <button class="button pos load-img">Load</button>
+                <button class="delete-btn button neg">Delete</button>
+            </div>
+            <div class="element-preview hidden">
+                <button class="edit-btn-style edit-btn">✏️</button>
+            </div>
+        </div>
+        <div class="drag-drop-target"></div>
+    </template>
+
+    <footer>
+    </footer>
+</body>
+</html>
