@@ -221,18 +221,19 @@ function convertRelativePath(path) {
     let pathParts = window.location.href.split("/");
     let filename = pathParts[pathParts.length - 1];
     if (path.startsWith("../")) {
-        if (filename === "index.html") {
+        if (filename === "index.html" || !filename.endsWith('.html')) {
             return path.substring(1, path.length);
         } else {
             return path;
         }
     } else if (path.startsWith("./")) {
-        if (filename !== "index.html") {
+        if (filename !== "index.html" || !filename.endsWith('.html')) {
             return "." + path;
         } else {
             return path;
         }
     }
+    return path;
 }
 
 function contentElementToDomElement(el) {
