@@ -1,6 +1,6 @@
 .drag-drop-target {
     width: 100%;
-    height: 5px;
+    height: 10px;
     background-color: transparent;
     border: 1px solid rgba(0,0,0,0.5);
     margin: 5px;
@@ -11,12 +11,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    
+    backdrop-filter: brightness(0.9);
 }
 
 .drag-drop-target.dragover {
     transition: 0.5s;
-    background-color: rgba(90, 90, 255, 0.1);
+    background-color: rgba(90, 90, 255, 0.3);
     height: 35px;
 }
 
@@ -104,3 +104,24 @@
     margin-bottom: 10px;
 }
 
+.switch-elements-btn-container {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: brightness(0.8);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.switch-elements-btn {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 20px;
+    margin: 5px;
+    background-color: transparent;
+    cursor: pointer;
+}

@@ -66,9 +66,11 @@ function getUrlParams() {
 }
 
 function showPopup(title, text, buttons = [], hasCloseBtn = true) {
+    let closeBtnId = getUid();
     let html = `<div class="popup-container">
         <div class="popup">
-            <button class="popup-close-btn">X</button>
+            <label class="sr-only" for="${closeBtnId}">Popup schließen</label>
+            <button id="${closeBtnId}" class="popup-close-btn">X</button>
             <h1 class="popup-title">Popup</h1>
             <p class="popup-text"></p>
             <div class="popup-buttons">
@@ -219,7 +221,8 @@ function htmlToElement(html) {
 
 function convertRelativePath(path) {
     let pathParts = window.location.href.split("/");
-    let filename = pathParts[pathParts.length - 1];
+    let filenamePats = pathParts[pathParts.length - 1].split('?');
+    let filename = filenamePats[0];
     if (path.startsWith("../")) {
         if (filename === "index.html" || !filename.endsWith('.html')) {
             return path.substring(1, path.length);

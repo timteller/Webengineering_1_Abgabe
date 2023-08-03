@@ -197,6 +197,10 @@ function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
+function insertBefore(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode);
+}
+
 function makeDragDropTarget(el) {
     el.ondragover = (e) => {
         if (el.dataset.uid === CURRENT_DRAGGED_ELEMENT) {
@@ -216,13 +220,21 @@ function makeDragDropTarget(el) {
         let uid = e.dataTransfer.getData("uid");
 
         let postEL = document.getElementById("post-element-" + uid);
-        let dragDropTarget = document.getElementById("drag-drop-target" + uid);
-
-        insertAfter(el, postEL);
+        let dragDropTarget = document.getElementById("drag-drop-target-" + uid);
+        let switchElementsBtnContainer = document.getElementById("switch-elements-btn-container-" + uid);
+        if(el.id == 'first-drag-drop-target') {
+            insertAfter(el, postEL);
+        }
+        else {
+            insertAfter(el.nextElementSibling, postEL);
+        }
+        
         insertAfter(postEL, dragDropTarget);
+        insertAfter(dragDropTarget, switchElementsBtnContainer);
         CHANGES_MADE++;
         CURRENT_DRAGGED_ELEMENT = null;
     };
+
 }
 
 function addTextElement(type, text = "") {
@@ -232,8 +244,15 @@ function addTextElement(type, text = "") {
     postElement.id = "post-element-" + elementUid;
     postElement.dataset.uid = elementUid;
     let dragDropTarget = textElelement.querySelector(".drag-drop-target");
-    dragDropTarget.id = "drag-drop-target" + elementUid;
+    dragDropTarget.id = "drag-drop-target-" + elementUid;
     dragDropTarget.dataset.uid = elementUid;
+    let switchElementsBtnContainer = textElelement.querySelector(".switch-elements-btn-container");
+    switchElementsBtnContainer.id = "switch-elements-btn-container-" + elementUid;
+    let switchElementsBtn = textElelement.querySelector('.switch-elements-btn');
+    switchElementsBtn.id = "switch-elements-btn-" + elementUid;
+    let switchElementsBtnLabel = textElelement.querySelector('.switch-elements-btn-label');
+    switchElementsBtnLabel.htmlFor = "switch-elements-btn-" + elementUid;
+
     let elementInputs = textElelement.querySelector(".element-inputs");
     let inputTextarea = textElelement.querySelector(".input-textarea");
     let elementPreview = textElelement.querySelector(".element-preview");
@@ -247,6 +266,19 @@ function addTextElement(type, text = "") {
         e.dataTransfer.setData("uid", elementUid);
         CURRENT_DRAGGED_ELEMENT = elementUid;
         console.log(e);
+    });
+
+    switchElementsBtn.addEventListener('click',(e) => {
+        let nextPostEl = switchElementsBtnContainer.nextElementSibling;
+        let nextElUid = nextPostEl.dataset.uid;
+        let nextDragDropTarget = document.getElementById('drag-drop-target-'+nextElUid);
+        let nextSwitchElementsBtnContainer = document.getElementById('switch-elements-btn-container-'+nextElUid);
+        console.log(nextPostEl,nextDragDropTarget,nextSwitchElementsBtnContainer);
+        insertBefore(postElement,nextSwitchElementsBtnContainer);
+        insertBefore(nextSwitchElementsBtnContainer,nextDragDropTarget);
+        insertBefore(nextDragDropTarget,nextPostEl);
+        hideLastSwitcElementsBtn();
+        CHANGES_MADE++;
     });
 
     inputTextarea.value = text.replaceAll("<br>", "\n");
@@ -279,8 +311,9 @@ function addTextElement(type, text = "") {
 
     deleteBtn.addEventListener("click", (e) => {
         CHANGES_MADE++;
-        document.getElementById("post-element-" + elementUid).remove();
-        document.getElementById("drag-drop-target" + elementUid).remove();
+        postElement.remove();
+        dragDropTarget.remove();
+        switchElementsBtn.remove();
     });
 
     postElement.dataset.type = type;
@@ -288,6 +321,7 @@ function addTextElement(type, text = "") {
     postElementsContainer.appendChild(textElelement);
 
     makeDragDropTarget(dragDropTarget);
+    hideLastSwitcElementsBtn();
 }
 
 function addImageElement(url = "", caption = "") {
@@ -297,9 +331,15 @@ function addImageElement(url = "", caption = "") {
     postElement.id = "post-element-" + elementUid;
     postElement.dataset.uid = elementUid;
     let dragDropTarget = imageElelement.querySelector(".drag-drop-target");
-    dragDropTarget.id = "drag-drop-target" + elementUid;
+    dragDropTarget.id = "drag-drop-target-" + elementUid;
     dragDropTarget.dataset.uid = elementUid;
-
+    let switchElementsBtnContainer = imageElelement.querySelector(".switch-elements-btn-container");
+    switchElementsBtnContainer.id = "switch-elements-btn-container-" + elementUid;
+    let switchElementsBtn = imageElelement.querySelector('.switch-elements-btn');
+    switchElementsBtn.id = "switch-elements-btn-" + elementUid;
+    let switchElementsBtnLabel = imageElelement.querySelector('.switch-elements-btn-label');
+    switchElementsBtnLabel.htmlFor = "switch-elements-btn-" + elementUid;
+    
     let elementInputs = imageElelement.querySelector(".element-inputs");
     let urlInputTextbox = imageElelement.querySelector(".input-textbox.url");
     let captionInputTextbox = imageElelement.querySelector(".input-textbox.caption");
@@ -321,6 +361,19 @@ function addImageElement(url = "", caption = "") {
         e.dataTransfer.setData("uid", elementUid);
         CURRENT_DRAGGED_ELEMENT = elementUid;
         console.log(e);
+    });
+
+    switchElementsBtn.addEventListener('click',(e) => {
+        let nextPostEl = switchElementsBtnContainer.nextElementSibling;
+        let nextElUid = nextPostEl.dataset.uid;
+        let nextDragDropTarget = document.getElementById('drag-drop-target-'+nextElUid);
+        let nextSwitchElementsBtnContainer = document.getElementById('switch-elements-btn-container-'+nextElUid);
+        console.log(nextPostEl,nextDragDropTarget,nextSwitchElementsBtnContainer);
+        insertBefore(postElement,nextSwitchElementsBtnContainer);
+        insertBefore(nextSwitchElementsBtnContainer,nextDragDropTarget);
+        insertBefore(nextDragDropTarget,nextPostEl);
+        hideLastSwitcElementsBtn();
+        CHANGES_MADE++;
     });
 
     let loadImgPreview = (e) => {
@@ -357,8 +410,9 @@ function addImageElement(url = "", caption = "") {
 
     deleteBtn.addEventListener("click", (e) => {
         CHANGES_MADE++;
-        document.getElementById("post-element-" + elementUid).remove();
-        document.getElementById("drag-drop-target" + elementUid).remove();
+        postElement.remove();
+        dragDropTarget.remove();
+        switchElementsBtnContainer.remove();
     });
 
     postElement.dataset.type = "img";
@@ -366,6 +420,7 @@ function addImageElement(url = "", caption = "") {
     postElementsContainer.appendChild(imageElelement);
 
     makeDragDropTarget(dragDropTarget);
+    hideLastSwitcElementsBtn();
 }
 
 function section(headline, content = []) {
@@ -434,4 +489,21 @@ function toPostObj() {
     };
 
     return postObj;
+}
+
+function hideLastSwitcElementsBtn() {
+    let switchContainers = document.querySelectorAll('.switch-elements-btn-container');
+    for(let container of switchContainers) {
+        hideSwitchElementsBtnWhenLast(container);
+    }
+}
+
+
+function hideSwitchElementsBtnWhenLast(switchElementsBtnContainer) {
+    if(!switchElementsBtnContainer.nextElementSibling) {
+        switchElementsBtnContainer.classList.add('hidden');
+        return;
+    } else {
+        switchElementsBtnContainer.classList.remove('hidden');
+    }
 }

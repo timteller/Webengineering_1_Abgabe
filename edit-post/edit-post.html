@@ -27,27 +27,41 @@
     </header>
     <div class="content-container">
         <div class="post-elements-container">
-            <input type="text" class="main-title-input" placeholder="Titel"/>
-            <div class="drag-drop-target" id="first-drag-drop-target"></div>
+            <label class="sr-only" for="main-title-input">Titel des Posts</label>
+            <input type="text" id="main-title-input" class="main-title-input" placeholder="Titel"/>
+            <div class="drag-drop-target  hide-on-small hide-on-medium" id="first-drag-drop-target"></div>
         </div>
         <div class="flex-container row">
-            <button class="button" id="add-text">add Text</button>
-            <button class="button" id="add-headline">add H2</button>
-            <button class="button" id="add-img">add Img</button>
+            <button class="button" id="add-text">Text einfügen</button>
+            <button class="button" id="add-headline">Section einfügen</button>
+            <button class="button" id="add-img">Bild einfügen</button>
         </div>
     </div>
 
     <template id="text-element-template">
         <div class="post-element" draggable="true">
             <div class="element-inputs">
-                <button class="delete-btn-style delete-btn">🗑️</button>
-                <textarea class="input-textarea"></textarea>
+                <label>
+                    <span class="sr-only">Löschen</span>
+                    <button class="delete-btn-style delete-btn">🗑️</button>
+                </label>
+                <label>
+                    <span class="sr-only">Text</span>
+                    <textarea class="input-textarea"></textarea>
+                </label>
             </div>
             <div class="element-preview hidden">
-                <button class="edit-btn-style edit-btn">✏️</button>
+                <label>
+                    <span class="sr-only">Element Bearbeiten</span>
+                    <button class="edit-btn-style edit-btn">✏️</button>
+                </label>
             </div>
         </div>
-        <div class="drag-drop-target"></div>
+        <div class="drag-drop-target hide-on-small hide-on-medium"></div>
+        <div class="switch-elements-btn-container hide-on-big">
+            <label class="switch-elements-btn-label sr-only">Dieses Element mit dem Vorrigen vertauschen</label>
+            <button class="switch-elements-btn">⬆⬇</button>
+        </div>
     </template>
 
     <template id="image-element-template">
@@ -61,14 +75,21 @@
                     <span>caption:</span>
                     <input type="text" class="input-textbox caption" placeholer="caption"/>
                 </label>
-                <button class="button pos load-img">Load</button>
-                <button class="delete-btn button neg">Delete</button>
+                <button class="button pos load-img">Bild Laden</button>
+                <button class="delete-btn button neg">Löschen</button>
             </div>
             <div class="element-preview hidden">
-                <button class="edit-btn-style edit-btn">✏️</button>
+                <label>
+                    <span class="sr-only">Element Bearbeiten</span>
+                    <button class="edit-btn-style edit-btn">✏️</button>
+                </label>
             </div>
         </div>
-        <div class="drag-drop-target"></div>
+        <div class="drag-drop-target hide-on-small hide-on-medium"></div>
+        <div class="switch-elements-btn-container hide-on-big">
+            <label class="switch-elements-btn-label sr-only">Dieses Element mit dem Vorrigen vertauschen</label>
+            <button class="switch-elements-btn">⬆⬇</button>
+        </div>
     </template>
 
     <footer>

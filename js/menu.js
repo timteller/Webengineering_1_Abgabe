@@ -1,5 +1,6 @@
 const navOpenBtn = document.getElementById('nav-open-btn');
 const navElement = document.getElementById('nav');
+const header = document.querySelector('header');
 
 function addMenuItems() {
 
@@ -23,8 +24,6 @@ function addMenuItems() {
         delete menuItems.Profil;
         delete menuItems['Neuer Post'];
     }
-
-
     
     
     for(let key in menuItems)
@@ -37,6 +36,16 @@ function addMenuItems() {
     }
 }
 addMenuItems();
+
+function navOpenBtnLabel() {
+    let label = document.createElement('label');
+    label.htmlFor = 'nav-open-btn';
+    label.textContent = 'Menü Ausklappen'
+    label.id = 'nav-open-btn-label';
+    label.classList.add('sr-only');
+    header.insertBefore(label, navOpenBtn);
+}
+navOpenBtnLabel();
 
 
 navOpenBtn.addEventListener('click', toggleMenu);

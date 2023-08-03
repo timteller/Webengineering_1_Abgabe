@@ -1,9 +1,9 @@
 html {
     --dark: rgb(34, 40, 49);
     --lighter-dark: rgb(57, 62, 70);
-    --blue: rgb(0, 173, 181);
-    --light-blue: rgb(90, 242, 250);
-    --dark-blue: rgb(0, 119, 125);
+    --blue: rgb(0, 102, 255);
+    --light-blue: rgb(59, 137, 255);
+    --dark-blue: rgb(0, 64, 160);
     --red: rgb(255,0,0);
     --light-red: rgb(255,150,150);
     --dark-red: rgb(166, 0, 0);
@@ -24,13 +24,13 @@ html {
     --footer-bg-col: var(--dark);
     --footer-text-col: var(--light);
 
-    --link-col: var(--blue);
+    --link-col: var(--dark-blue);
     --link-hover-col: var(--light-blue);
 
     --shadow-col: rgba(57, 62, 70, 0.3);
 
-    --button-col: var(--blue);
-    --button-hover-col: var(--dark-blue);
+    --button-col: var(--light-blue);
+    --button-hover-col: var(--blue);
     --pos-button-col: var(--green);
     --pos-button-hover-col: var(--dark-green);
     --neg-button-col: var(--red);
@@ -105,6 +105,7 @@ header > nav > a:hover {
     background-color: var(--nav-hover-col);
 }
 
+
 #nav-open-btn {
     padding: 20px 10px 20px 10px;
     transition: 0.3s;
@@ -131,7 +132,6 @@ header > nav > a:hover {
 
 .content-container {
     padding: 10px;
-    background-color: blue;
     flex: 1;
     background-color: var(--content-container-bg-col);
     width: var(--content-width);
@@ -141,6 +141,10 @@ header > nav > a:hover {
 
 @media screen and (width >= 600px) {
     #nav-open-btn {
+        display: none;
+    }
+
+    #nav-open-btn-label {
         display: none;
     }
 }
@@ -462,7 +466,10 @@ footer a {
     align-items: flex-start;
     width: fit-content;
     justify-content: center;
-    margin-bottom:15px ;
+    margin-bottom: 15px;
+    max-width: 100%;
+    overflow: hidden;
+    flex: 1;
 }
 
 .subheadline {
@@ -512,22 +519,37 @@ footer a {
     z-index: 3;
 }
 
+@media screen and (width >= 1000px) {
+    .hide-on-big {
+        display: none !important;
+    }
+}
+
 @media screen and (width < 1000px) {
     .post-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     .hide-on-medium {
-        display: none;
+        display: none !important;
+    }
+    
+    .header-btn {
+        margin: 5px;
+        font-size: 1rem;
     }
 }
 
-@media screen and (width < 600px) {
+@media screen and (width < 650px) {
     .post-grid {
         grid-template-columns: repeat(1, 1fr);
     }
 
     .hide-on-small {
-        display: none;
+        display: none !important;
+    }
+
+    .header-btn {
+        white-space: normal;
     }
 }
 
@@ -585,4 +607,16 @@ footer a {
 
 .list-table tr:nth-child(2n) {
     background-color: var(--shadow-col);
+}
+
+/* https://gabriele-strache.de/uebersetzungen/css-unsichtbarer-seiteninhalt/ */
+.sr-only {
+    clip:rect(1px, 1px, 1px, 1px);
+    clip-path:inset(50%);
+    height:1px;
+    width:1px;
+    margin:-1px;
+    overflow:hidden;
+    padding:0;
+    position:absolute;
 }

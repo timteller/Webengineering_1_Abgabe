@@ -9,6 +9,7 @@
     font-size: 2em;
     border: 1px solid var(--lighter-dark);
     border-radius: 2px;
+    max-width: 100%;
 }
 
 #username-input {
