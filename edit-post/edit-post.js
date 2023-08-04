@@ -549,7 +549,7 @@ function showTutorial(force=false) {
         },
         dontShowAgain: {
             type: '',
-            text: 'Nicht mehr anzeigen'
+            text: 'Nicht erneut anzeigen'
         }
     });
     popup.buttons.understood.onclick = popup.close;

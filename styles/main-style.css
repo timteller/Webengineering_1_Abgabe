@@ -20,6 +20,7 @@ html {
     --nav-hover-col: var(--lighter-dark);
     --header-text-col: var(--light);
     --body-bg-col: var(--light);
+    
     --content-container-bg-col: var(--light);
     --main-text-col: var(--dark);
     --footer-bg-col: var(--dark);
@@ -35,6 +36,9 @@ html {
     --neg-button-col: var(--red);
     --neg-button-hover-col: var(--dark-red);
     --button-text-col: var(--light);
+    --button-border: none;
+
+    --subheadline-opacity: 0.5;
 
     --content-width: 60%;
     --popup-size-factor: 0.6;
@@ -45,19 +49,37 @@ html.high-contrast {
     --dark: black;
     --lighter-dark: rgb(57, 62, 70);
     --blue: rgb(0, 0, 158);
-    --light-blue: rgb(0, 0, 158);;
-    --dark-blue: rgb(0, 0, 158);;
-    --red: red;;
-    --light-red: red;
-    --dark-red: red;
+    --light-blue: var(--blue);
+    --dark-blue: var(--blue);;
+    --red: red;
+    --light-red: var(--red);
+    --dark-red: var(--red);
     --green: green;
-    --light-green: green;
-    --dark-green: green;
+    --light-green: var(--green);;
+    --dark-green: var(--green);;
     --yellow: yellow;
-    --light-yellow: yellow;
-    --dark-yellow: yellow;
+    --light-yellow: var(--yellow);
+    --dark-yellow: var(--yellow);
     --light: white;
     --shadow-col: rgba(57, 62, 70, 0.3);
+
+    --button-border: 1px solid white;
+    --subheadline-opacity: 1;
+}
+
+html.dark-mode {
+    --content-container-bg-col: var(--dark);
+    --body-bg-col: var(--dark);
+    --main-text-col: var(--light);
+    --header-bg-col: var(--lighter-dark);
+    --footer-bg-col: var(--lighter-dark);
+    --nav-hover-col: var(--dark);
+    --shadow-col: rgba(255, 255, 255, 0.3);
+    --link-col: var(--light-blue);
+}
+
+html.dark-mode.high-contrast {
+    --blue: rgb(93, 93, 255);
 }
 
 * {
@@ -79,6 +101,7 @@ a:hover {
 
 h1 {
     font-size: 30px;
+    color: var(--main-text-col);
 }
 
 h2 {
@@ -107,7 +130,7 @@ header {
 header > nav {
     display: flex;
     flex-direction: row;
-    z-index: 100;
+    z-index: 50;
 }
 
 header > nav > a {
@@ -121,6 +144,7 @@ header > nav > a {
 
 header > nav > a:hover {
     background-color: var(--nav-hover-col);
+    color: var(--header-text-col);
 }
 
 
@@ -154,7 +178,7 @@ header > nav > a:hover {
     background-color: var(--content-container-bg-col);
     width: var(--content-width);
     align-self: center;
-    color: var(-mainTextCol);
+    color: var(--main-text-col);
 }
 
 @media screen and (width >= 600px) {
@@ -256,8 +280,17 @@ footer a {
     justify-content: center;
 }
 
+.flex-container.end {
+    justify-content: flex-end;
+}
+
+.flex-container.start {
+    justify-content: flex-start;
+}
+
 .button {
-    border: none;
+    position: relative;
+    border: var(--button-border);
     background-color: var(--button-col);
     color: var(--button-text-col);
     padding: 5px;
@@ -304,17 +337,20 @@ footer a {
 
 .textbox {
     padding: 10px;
-    border: 1px solid var(--dark);
+    border: 1px solid var(--main-text-col);
     border-radius: 5px;
     margin: 5px;
+    color: var(--main-text-col);
+    background-color: var(--content-container-bg-col);
 }
 
 .register-textarea {
     padding: 10px;
-    border: 1px solid var(--dark);
+    border: 1px solid var(--main-text-col);
     border-radius: 5px;
     margin: 5px;
     resize: none;
+    background-color: var(--content-container-bg-col);
 }
 
 .content-card {
@@ -351,11 +387,11 @@ footer a {
     padding: 10px;
     position: relative;
     border-radius: 10px;
-    background-color: blue;
     width: calc(var(--content-width) * var(--popup-size-factor));
     min-height: 50px;
     background-color: var(--content-container-bg-col);
     animation: appear 0.5s;
+    color: var(--main-text-col);
 }
 
 @keyframes appear {
@@ -404,7 +440,8 @@ footer a {
     padding: 10px;
     border-radius: 0px 0px 10px 10px;
     background-color: var(--body-bg-col);
-    border-color: var(--dark);
+    border-color: var(--main-text-col);
+    color: var(--main-text-col);
     border: 2px solid;
     border-top: none;
     border-left: 10px solid;
@@ -493,7 +530,8 @@ footer a {
 
 .subheadline {
     font-size: 12px;
-    opacity: 0.5;
+    color: var(--main-text-col);
+    opacity: var(--subheadline-opacity);
 }
 
 .wireframe {
@@ -640,7 +678,7 @@ footer a {
     position:absolute;
 }
 
-.contrast-button {
+.footer-button {
     padding: 2px;
     flex: 0;
     border: none;
@@ -671,3 +709,7 @@ footer a {
     background-image: linear-gradient(to right, var(--green) 50%, var(--dark) 50%);
 }
 
+.dark-mode-button {
+    font-size: 20px;
+    background-color: transparent;
+}

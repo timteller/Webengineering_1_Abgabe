@@ -50,6 +50,7 @@
     min-width: 100%;
     max-width: 100%;
     font-size: 18px;
+    color: var(--main-text-col);
 }
 
 .element-inputs .flex-container {
@@ -61,11 +62,12 @@
 
 .input-textbox {
     padding: 5px;
-    border: 1px solid var(--dark);
+    border: 1px solid var(--main-text-col);
     border-radius: 5px;
     background-color: transparent;
     flex: 3;
     font-size: 18px;
+    color: var(--main-text-col);
 }
 
 .main-title-input {
@@ -77,6 +79,7 @@
     /* border-left: 10px solid black; */
     -webkit-tap-highlight-color: transparent;
     padding: 5px;
+    color: var(--main-text-col);
 }
 
 .element-preview {
@@ -97,7 +100,8 @@
     justify-content: center;
     border-radius: 5px;
     cursor: pointer;
-    border: 1px solid black;
+    border: 1px solid var(--main-text-col);
+    background-color: var(--content-container-bg-col);
 }
 
 .element-preview p {

@@ -24,6 +24,11 @@ async function loadUsers() {
         tr.addEventListener('click',(e) => {
             window.location = '../profile/profile.html?username='+user.username;
         });
+        tr.addEventListener('keypress',(e) => {
+            if(e.key === 'Enter') {
+                window.location = '../profile/profile.html?username='+user.username;
+            }
+        });
         tr.dataset.username = user.username;
         usersTable.querySelector('tbody').appendChild(tr);
         tableRows.push(tr);

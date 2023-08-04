@@ -292,6 +292,7 @@ function getPostPreviewCard(post) {
 
     let card = document.createElement("div");
     card.classList.add("post-card");
+    card.tabIndex = 0;
 
     let title = document.createElement("h1");
     title.textContent = post.title;
@@ -319,6 +320,13 @@ function getPostPreviewCard(post) {
         e.preventDefault();
         window.location = postUrl;
     };
+
+    card.addEventListener('keypress', (e) => {
+        e.preventDefault();
+        if(e.key === 'Enter') {
+            window.location = postUrl;
+        }
+    })
     return card;
 }
 
