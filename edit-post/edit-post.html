@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,11 @@
     <script src="../js/api.js" type="text/javascript" defer></script>
     <script src="../js/menu.js" type="text/javascript" defer></script>
     <script src="../js/footer.js" type="text/javascript" defer></script>
-    
-    
 
     <link rel="stylesheet" type="text/css" href="edit-post.css">
     <script src="edit-post.js" type="text/javascript" defer></script>
 </head>
+
 <body>
     <header>
         <div class="header-left-alignment-container">
@@ -22,13 +22,17 @@
             <button class="button pos header-btn" id="save-btn">Speichern</button>
             <button class="button neg header-btn" id="post-delete-btn">Löschen</button>
         </div>
-        <button id="nav-open-btn"><div></div><div></div><div></div></button>
+        <button id="nav-open-btn">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
         <nav id="nav"></nav>
     </header>
     <div class="content-container">
         <div class="post-elements-container">
             <label class="sr-only" for="main-title-input">Titel des Posts</label>
-            <input type="text" id="main-title-input" class="main-title-input" placeholder="Titel"/>
+            <input type="text" id="main-title-input" class="main-title-input" placeholder="Titel" />
             <div class="drag-drop-target  hide-on-small hide-on-medium" id="first-drag-drop-target"></div>
         </div>
         <div class="flex-container row">
@@ -36,7 +40,7 @@
             <button class="button" id="add-headline">Section einfügen</button>
             <button class="button" id="add-img">Bild einfügen</button>
         </div>
-        
+
         <div class="show-tutorial-link">
             <a href="#" id="show-tutorial">Anleitung anzeigen</a>
         </div>
@@ -73,11 +77,11 @@
             <div class="element-inputs">
                 <label class="flex-container row">
                     <span>src:</span>
-                    <input type="text" class="input-textbox url" placeholer="src"/>
+                    <input type="text" class="input-textbox url" placeholer="src" />
                 </label>
                 <label class="flex-container row">
                     <span>caption:</span>
-                    <input type="text" class="input-textbox caption" placeholer="caption"/>
+                    <input type="text" class="input-textbox caption" placeholer="caption" />
                 </label>
                 <button class="button pos load-img">Bild Laden</button>
                 <button class="delete-btn button neg">Löschen</button>
@@ -99,4 +103,5 @@
     <footer>
     </footer>
 </body>
+
 </html>
