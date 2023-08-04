@@ -224,16 +224,16 @@ function convertRelativePath(path) {
     let filenamePats = pathParts[pathParts.length - 1].split('?');
     let filename = filenamePats[0];
     if (path.startsWith("../")) {
-        if (filename === "index.html" || !filename.endsWith('.html')) {
+        if (filename === "index.html" || filename === '') {
             return path.substring(1, path.length);
         } else {
             return path;
         }
     } else if (path.startsWith("./")) {
-        if (filename !== "index.html" || !filename.endsWith('.html')) {
-            return "." + path;
-        } else {
+        if (filename === "index.html" || filename === '') {
             return path;
+        } else {
+            return "." + path;
         }
     }
     return path;
