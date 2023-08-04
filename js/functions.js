@@ -304,7 +304,7 @@ function getPostPreviewCard(post) {
             firstText.textContent += words[i] + " ";
         }
 
-        firstText.innerHTML += ` <a href="${postUrl}">[...]</a>`;
+        firstText.innerHTML += ` <a href="${postUrl}">... weiterlesen</a>`;
         card.appendChild(firstText);
     }
 

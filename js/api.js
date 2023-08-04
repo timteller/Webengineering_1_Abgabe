@@ -413,23 +413,3 @@ class API {
 const api = new API("jr8au9hp");
 // const api = new API('12345678');
 
-// let testPost = {
-//     title: 'das ist ein Test',
-//     content: [
-//         textContent('Text 1'), imageContent('https://www.ischgl.com/media/ischgl/SOMMER/WANDERN/Berglisee/image-thumb__24851221__hero-slide-small/berglisee-2019%20%2847%29.jpg','das ist ein bild von einem see')
-//     ],
-//     sections: [
-//         {
-//             sectionTitle: 'section 1',
-//             content: [
-//                 textContent('Section Text 1'), imageContent('https://image.stern.de/8846008/t/ZG/v2/w1440/r1.3333/-/baum.jpg','das ist ein bild von einem baum')
-//             ],
-//         },
-//         {
-//             sectionTitle: 'section 2',
-//             content: [
-//                 textContent('Section Text 2'), imageContent('https://www.wissenschaft-im-dialog.de/fileadmin/user_upload/_processed_/2/4/csm_WieSo_Verlust_Masse_Sonne_437f95fa52.jpg','ein bild von der sonne')
-//             ],
-//         }
-//     ],
-// }

@@ -14,6 +14,7 @@ html {
     --light-yellow: rgb(255, 243, 162);
     --dark-yellow: rgb(169, 146, 0);
     --light: rgb(238, 238, 238);
+    --shadow-col: rgba(57, 62, 70, 0.3);
 
     --header-bg-col: var(--dark);
     --nav-hover-col: var(--lighter-dark);
@@ -27,8 +28,6 @@ html {
     --link-col: var(--dark-blue);
     --link-hover-col: var(--light-blue);
 
-    --shadow-col: rgba(57, 62, 70, 0.3);
-
     --button-col: var(--light-blue);
     --button-hover-col: var(--blue);
     --pos-button-col: var(--green);
@@ -40,6 +39,25 @@ html {
     --content-width: 60%;
     --popup-size-factor: 0.6;
     --card-width: 60%;
+}
+
+html.high-contrast {
+    --dark: black;
+    --lighter-dark: rgb(57, 62, 70);
+    --blue: rgb(0, 0, 158);
+    --light-blue: rgb(0, 0, 158);;
+    --dark-blue: rgb(0, 0, 158);;
+    --red: red;;
+    --light-red: red;
+    --dark-red: red;
+    --green: green;
+    --light-green: green;
+    --dark-green: green;
+    --yellow: yellow;
+    --light-yellow: yellow;
+    --dark-yellow: yellow;
+    --light: white;
+    --shadow-col: rgba(57, 62, 70, 0.3);
 }
 
 * {
@@ -276,6 +294,7 @@ footer a {
     flex-direction: row;
     width: 100%;
 }
+
 
 .header-btn {
     margin: 10px;
@@ -620,3 +639,35 @@ footer a {
     padding:0;
     position:absolute;
 }
+
+.contrast-button {
+    padding: 2px;
+    flex: 0;
+    border: none;
+    border-radius: 2px;
+    background-color: var(--light);
+    cursor: pointer;
+}
+
+.contrast-button.active {
+    background-color: var(--green);
+}
+
+.contrast-button > div { 
+    background-color: var(--dark);
+    padding: 2px;
+    border-radius: 50%;
+}
+
+
+.contrast-button > div > div {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-image: linear-gradient(to right, var(--light) 50%, var(--dark) 50%);
+}
+
+.contrast-button.active > div > div {
+    background-image: linear-gradient(to right, var(--green) 50%, var(--dark) 50%);
+}
+

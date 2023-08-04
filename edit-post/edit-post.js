@@ -8,13 +8,39 @@ const imageElementTemplate = document.querySelector("#image-element-template");
 const firstDragDropTarget = document.querySelector("#first-drag-drop-target");
 const contentContainer = document.querySelector(".content-container");
 
+const addTextBtn = document.querySelector("#add-text");
+const addSectionBtn = document.querySelector("#add-headline");
+const addImgBtn = document.querySelector("#add-img");
+
 const saveBtn = document.querySelector("#save-btn");
 const leaveBtn = document.querySelector("#leave-btn");
 const postDeleteBtn = document.querySelector("#post-delete-btn");
 
+const showTutorialBtn = document.querySelector("#show-tutorial");
+
+addTextBtn.addEventListener("click", (e) => {
+    addTextElement("p");
+    CHANGES_MADE++;
+});
+
+addSectionBtn.addEventListener("click", (e) => {
+    addTextElement("h2");
+    CHANGES_MADE++;
+});
+
+addImgBtn.addEventListener("click", (e) => {
+    addImageElement();
+    CHANGES_MADE++;
+});
+
 mainTitleInput.addEventListener('change',(e) => {
     CHANGES_MADE++;
 });
+
+showTutorialBtn.addEventListener('click',(e) => {
+    e.preventDefault();
+    showTutorial(true);
+})
 
 saveBtn.addEventListener("click", async (e) => {
     let loadingAnimation = startLoadingAnimation();
@@ -116,19 +142,6 @@ postDeleteBtn.addEventListener('click', (e) => {
 makeDragDropTarget(firstDragDropTarget);
 // const headlineElementTemplate = document.querySelector('#headlineElementTemplate');
 
-document.querySelector("#add-text").addEventListener("click", (e) => {
-    addTextElement("p");
-    CHANGES_MADE++;
-});
-document.querySelector("#add-headline").addEventListener("click", (e) => {
-    addTextElement("h2");
-    CHANGES_MADE++;
-});
-document.querySelector("#add-img").addEventListener("click", (e) => {
-    addImageElement();
-    CHANGES_MADE++;
-});
-
 function addContentElement(el) {
     if (el.__type === "text") {
         addTextElement("p", el.data);
@@ -166,6 +179,7 @@ async function loadPost(id = "") {
         }
     }
     endLoadingAnimation(loadingAnimation);
+    hideFirstDragDropTargetWhenNoContent()
 }
 loadPost(urlParams.get("id"));
 
@@ -277,7 +291,7 @@ function addTextElement(type, text = "") {
         insertBefore(postElement,nextSwitchElementsBtnContainer);
         insertBefore(nextSwitchElementsBtnContainer,nextDragDropTarget);
         insertBefore(nextDragDropTarget,nextPostEl);
-        hideLastSwitcElementsBtn();
+        hideLastSwitchElementsBtn();
         CHANGES_MADE++;
     });
 
@@ -314,6 +328,7 @@ function addTextElement(type, text = "") {
         postElement.remove();
         dragDropTarget.remove();
         switchElementsBtn.remove();
+        hideFirstDragDropTargetWhenNoContent();
     });
 
     postElement.dataset.type = type;
@@ -321,7 +336,8 @@ function addTextElement(type, text = "") {
     postElementsContainer.appendChild(textElelement);
 
     makeDragDropTarget(dragDropTarget);
-    hideLastSwitcElementsBtn();
+    hideLastSwitchElementsBtn();
+    hideFirstDragDropTargetWhenNoContent();
 }
 
 function addImageElement(url = "", caption = "") {
@@ -372,7 +388,7 @@ function addImageElement(url = "", caption = "") {
         insertBefore(postElement,nextSwitchElementsBtnContainer);
         insertBefore(nextSwitchElementsBtnContainer,nextDragDropTarget);
         insertBefore(nextDragDropTarget,nextPostEl);
-        hideLastSwitcElementsBtn();
+        hideLastSwitchElementsBtn();
         CHANGES_MADE++;
     });
 
@@ -413,6 +429,7 @@ function addImageElement(url = "", caption = "") {
         postElement.remove();
         dragDropTarget.remove();
         switchElementsBtnContainer.remove();
+        hideFirstDragDropTargetWhenNoContent();
     });
 
     postElement.dataset.type = "img";
@@ -420,7 +437,8 @@ function addImageElement(url = "", caption = "") {
     postElementsContainer.appendChild(imageElelement);
 
     makeDragDropTarget(dragDropTarget);
-    hideLastSwitcElementsBtn();
+    hideLastSwitchElementsBtn();
+    hideFirstDragDropTargetWhenNoContent();
 }
 
 function section(headline, content = []) {
@@ -491,7 +509,18 @@ function toPostObj() {
     return postObj;
 }
 
-function hideLastSwitcElementsBtn() {
+function hideFirstDragDropTargetWhenNoContent() {
+    let postElements = document.querySelectorAll('.post-element');
+    if(postElements.length === 0) {
+        firstDragDropTarget.classList.add('hidden');
+        return;
+    }
+    
+    firstDragDropTarget.classList.remove('hidden');
+}
+hideFirstDragDropTargetWhenNoContent();
+
+function hideLastSwitchElementsBtn() {
     let switchContainers = document.querySelectorAll('.switch-elements-btn-container');
     for(let container of switchContainers) {
         hideSwitchElementsBtnWhenLast(container);
@@ -503,7 +532,30 @@ function hideSwitchElementsBtnWhenLast(switchElementsBtnContainer) {
     if(!switchElementsBtnContainer.nextElementSibling) {
         switchElementsBtnContainer.classList.add('hidden');
         return;
-    } else {
-        switchElementsBtnContainer.classList.remove('hidden');
+    }
+
+    switchElementsBtnContainer.classList.remove('hidden');
+}
+
+function showTutorial(force=false) {
+    if(window.localStorage.getItem('noTutorial') === 'true' && !force) {
+        return;
+    }
+    window.localStorage.removeItem('noTutorial');
+    let popup = showPopup('Anleitung','Die Elemente lassen sich per Drag and Drop verschieben oder auf Mobilgeräten mit dem "⬆⬇" Button vertauschen.',{
+        understood: {
+            type: 'pos',
+            text: 'Verstanden'
+        },
+        dontShowAgain: {
+            type: '',
+            text: 'Nicht mehr anzeigen'
+        }
+    });
+    popup.buttons.understood.onclick = popup.close;
+    popup.buttons.dontShowAgain.onclick = () => {
+        window.localStorage.setItem('noTutorial','true');
+        popup.close();
     }
 }
+showTutorial();
