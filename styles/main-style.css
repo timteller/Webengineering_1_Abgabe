@@ -4,8 +4,8 @@ html {
     --blue: rgb(0, 102, 255);
     --light-blue: rgb(59, 137, 255);
     --dark-blue: rgb(0, 64, 160);
-    --red: rgb(255,0,0);
-    --light-red: rgb(255,150,150);
+    --red: rgb(255, 0, 0);
+    --light-red: rgb(255, 150, 150);
     --dark-red: rgb(166, 0, 0);
     --green: rgb(0, 184, 0);
     --light-green: rgb(151, 255, 151);
@@ -20,7 +20,7 @@ html {
     --nav-hover-col: var(--lighter-dark);
     --header-text-col: var(--light);
     --body-bg-col: var(--light);
-    
+
     --content-container-bg-col: var(--light);
     --main-text-col: var(--dark);
     --footer-bg-col: var(--dark);
@@ -50,13 +50,13 @@ html.high-contrast {
     --lighter-dark: rgb(57, 62, 70);
     --blue: rgb(0, 0, 158);
     --light-blue: var(--blue);
-    --dark-blue: var(--blue);;
+    --dark-blue: var(--blue);
     --red: red;
     --light-red: var(--red);
     --dark-red: var(--red);
     --green: green;
-    --light-green: var(--green);;
-    --dark-green: var(--green);;
+    --light-green: var(--green);
+    --dark-green: var(--green);
     --yellow: yellow;
     --light-yellow: var(--yellow);
     --dark-yellow: var(--yellow);
@@ -147,7 +147,6 @@ header > nav > a:hover {
     color: var(--header-text-col);
 }
 
-
 #nav-open-btn {
     padding: 20px 10px 20px 10px;
     transition: 0.3s;
@@ -211,11 +210,11 @@ header > nav > a:hover {
         overflow: hidden;
         /* transition: 0.3s; */
         transform-origin: center top;
-        transform: scaleY(0);   
+        transform: scaleY(0);
     }
 
     header > nav.open {
-        transform: scaleY(1); 
+        transform: scaleY(1);
     }
 
     header > nav > a {
@@ -228,7 +227,6 @@ header > nav > a:hover {
         --popup-size-factor: 1;
         --card-width: 100%;
     }
-    
 }
 
 footer {
@@ -263,7 +261,7 @@ footer a {
     display: flex;
 }
 
-.flex-container > *{
+.flex-container > * {
     flex: 1;
 }
 
@@ -328,7 +326,6 @@ footer a {
     width: 100%;
 }
 
-
 .header-btn {
     margin: 10px;
     flex: 0;
@@ -362,7 +359,7 @@ footer a {
     position: relative;
     overflow: hidden;
 }
- 
+
 .popup-container {
     position: fixed;
     display: flex;
@@ -493,7 +490,7 @@ footer a {
 }
 
 .loading-overlay::after {
-    content: " ";
+    content: ' ';
     align-self: center;
     display: block;
     width: 50px;
@@ -509,10 +506,10 @@ footer a {
 
 @keyframes rotate {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     100% {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 }
 
@@ -545,7 +542,7 @@ footer a {
     position: absolute;
     content: ' ';
     height: max-content;
-    background-color: rgb(200,200,200);
+    background-color: rgb(200, 200, 200);
     width: 100%;
     height: 100%;
 }
@@ -567,8 +564,7 @@ footer a {
 }
 
 .post-card:hover {
-    box-shadow: 0 0 10px var(--shadow-col)
-
+    box-shadow: 0 0 10px var(--shadow-col);
 }
 
 .post-card * {
@@ -589,7 +585,7 @@ footer a {
     .hide-on-medium {
         display: none !important;
     }
-    
+
     .header-btn {
         margin: 5px;
         font-size: 1rem;
@@ -628,7 +624,10 @@ footer a {
     width: 100%;
     height: 50%;
     z-index: 2;
-    background-image: linear-gradient(rgba(255,255,255,0.7) 40%,var(--content-container-bg-col));
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.7) 40%,
+        var(--content-container-bg-col)
+    );
 }
 
 .hidden {
@@ -640,7 +639,6 @@ footer a {
     border-collapse: collapse;
 }
 
-
 .list-table th {
     font-size: 20px;
     text-align: left;
@@ -650,14 +648,13 @@ footer a {
 .list-table td {
     font-size: 20px;
     padding: 5px;
-
 }
 
 .list-table tr {
     transition: 0.3s;
 }
 
-.list-table tr:hover{
+.list-table tr:hover {
     cursor: pointer;
     backdrop-filter: brightness(0.7);
 }
@@ -668,14 +665,14 @@ footer a {
 
 /* https://gabriele-strache.de/uebersetzungen/css-unsichtbarer-seiteninhalt/ */
 .sr-only {
-    clip:rect(1px, 1px, 1px, 1px);
-    clip-path:inset(50%);
-    height:1px;
-    width:1px;
-    margin:-1px;
-    overflow:hidden;
-    padding:0;
-    position:absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
 }
 
 .footer-button {
@@ -691,22 +688,29 @@ footer a {
     background-color: var(--green);
 }
 
-.contrast-button > div { 
+.contrast-button > div {
     background-color: var(--dark);
     padding: 2px;
     border-radius: 50%;
 }
 
-
 .contrast-button > div > div {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-image: linear-gradient(to right, var(--light) 50%, var(--dark) 50%);
+    background-image: linear-gradient(
+        to right,
+        var(--light) 50%,
+        var(--dark) 50%
+    );
 }
 
 .contrast-button.active > div > div {
-    background-image: linear-gradient(to right, var(--green) 50%, var(--dark) 50%);
+    background-image: linear-gradient(
+        to right,
+        var(--green) 50%,
+        var(--dark) 50%
+    );
 }
 
 .dark-mode-button {
