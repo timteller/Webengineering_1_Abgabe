@@ -37,8 +37,8 @@ function initFooter() {
     highContrastBtnLabel.classList.add('sr-only');
     highContrastBtnLabel.textContent = 'Webseite mit hohem Kontrast anzeigen'
 
-    footerAlignLeft.appendChild(highContrastBtn);
     footerAlignLeft.appendChild(highContrastBtnLabel);
+    footerAlignLeft.appendChild(highContrastBtn);
 }
 initFooter();
 
