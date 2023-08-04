@@ -1,8 +1,8 @@
 class API {
     constructor(groupKey) {
-        this.baseUrl = "https://lukas.rip/api";
+        this.baseUrl = 'https://lukas.rip/api';
         this.groupKey = groupKey;
-        this.authStr = localStorage.getItem("authStr");
+        this.authStr = localStorage.getItem('authStr');
     }
 
     createErrorFromMsg(msg) {
@@ -20,13 +20,13 @@ class API {
     }
 
     async createError(res) {
-        let contentType = res.headers.get("content-type");
+        let contentType = res.headers.get('content-type');
         let text = await res.text();
         let msg = text;
-        if (contentType.includes("text/html")) {
-            let htmlEl = document.createElement("html");
+        if (contentType.includes('text/html')) {
+            let htmlEl = document.createElement('html');
             htmlEl.innerHTML = text;
-            msg = htmlEl.textContent.replace(/\s\s+/g, " ").trim();
+            msg = htmlEl.textContent.replace(/\s\s+/g, ' ').trim();
         }
 
         return {
@@ -37,10 +37,10 @@ class API {
     }
 
     async createSuccess(res) {
-        let contentType = res.headers.get("content-type");
+        let contentType = res.headers.get('content-type');
         let data;
         try {
-            if (contentType.includes("application/json")) {
+            if (contentType.includes('application/json')) {
                 data = await res.json();
             } else {
                 data = await res.text();
@@ -65,8 +65,8 @@ class API {
 
     async sendRequest(method, endpoint, data, authenticated = false) {
         let headers = {};
-        const methodsThatAllowData = ["POST", "PUT", "PATCH"];
-        const methodsThatDontAllowData = ["GET", "DELETE"];
+        const methodsThatAllowData = ['POST', 'PUT', 'PATCH'];
+        const methodsThatDontAllowData = ['GET', 'DELETE'];
         const allowedMethods = [
             ...methodsThatDontAllowData,
             ...methodsThatAllowData,
@@ -75,8 +75,8 @@ class API {
             return this.createErrorFromMsg(`Invalid request method: ${method}`);
         }
 
-        headers["group-key"] = this.groupKey;
-        headers["Content-Type"] = "application/json";
+        headers['group-key'] = this.groupKey;
+        headers['Content-Type'] = 'application/json';
 
         if (authenticated && !this.authStr) {
             return this.createErrorFromMsg(
@@ -85,7 +85,7 @@ class API {
         }
 
         if (authenticated) {
-            headers["authorization"] = this.authStr;
+            headers['authorization'] = this.authStr;
         }
 
         let options = {
@@ -95,7 +95,7 @@ class API {
 
         if (data) {
             if (methodsThatAllowData.includes(method)) {
-                options["body"] = JSON.stringify(data);
+                options['body'] = JSON.stringify(data);
             } else {
                 return this.createErrorFromMsg(
                     `Request method ${method} does not support data.`
@@ -109,54 +109,54 @@ class API {
     }
 
     async GET(endpoint, authenticated = false) {
-        return await this.sendRequest("GET", endpoint, null, authenticated);
+        return await this.sendRequest('GET', endpoint, null, authenticated);
     }
 
     async POST(endpoint, data, authenticated = false) {
-        return await this.sendRequest("POST", endpoint, data, authenticated);
+        return await this.sendRequest('POST', endpoint, data, authenticated);
     }
 
     async PATCH(endpoint, data, authenticated = false) {
-        return await this.sendRequest("PATCH", endpoint, data, authenticated);
+        return await this.sendRequest('PATCH', endpoint, data, authenticated);
     }
 
     async PUT(endpoint, data, authenticated = false) {
-        return await this.sendRequest("PUT", endpoint, data, authenticated);
+        return await this.sendRequest('PUT', endpoint, data, authenticated);
     }
 
     async DELETE(endpoint, authenticated = false) {
-        return await this.sendRequest("DELETE", endpoint, null, authenticated);
+        return await this.sendRequest('DELETE', endpoint, null, authenticated);
     }
 
     async login(username, password) {
-        if(!username) {
+        if (!username) {
             return this.createErrorFromMsg('Bitte einene Nutzername eingeben.');
         }
-        if(!password) {
+        if (!password) {
             return this.createErrorFromMsg('Bitte ein Passwort eingeben.');
         }
-        localStorage.removeItem("authStr");
-        localStorage.removeItem("username");
+        localStorage.removeItem('authStr');
+        localStorage.removeItem('username');
         this.authStr = this.generateAuthStr(username, password);
         let res = await this.GET(`/users/login`, true);
         if (!res.success) {
             this.authStr = undefined;
             return res;
         }
-        localStorage.setItem("authStr", this.authStr);
-        localStorage.setItem("username", username);
+        localStorage.setItem('authStr', this.authStr);
+        localStorage.setItem('username', username);
         return res;
     }
 
     logout() {
-        localStorage.removeItem("authStr");
-        localStorage.removeItem("username");
+        localStorage.removeItem('authStr');
+        localStorage.removeItem('username');
         this.authStr = undefined;
-        return this.createSuccessFromMsg("logged out");
+        return this.createSuccessFromMsg('logged out');
     }
 
     async getUsers() {
-        return await this.GET("/users");
+        return await this.GET('/users');
     }
 
     async getUser(username) {
@@ -168,7 +168,7 @@ class API {
     }
 
     async getPosts() {
-        return await this.GET("/posts");
+        return await this.GET('/posts');
     }
 
     async getPost(postId) {
@@ -181,7 +181,7 @@ class API {
 
     async createPost(postObj) {
         let validationRes = this.validatePostObj(postObj);
-        if(!validationRes.success) {
+        if (!validationRes.success) {
             return validationRes;
         }
         return await this.POST(`/posts`, postObj, true);
@@ -189,7 +189,7 @@ class API {
 
     async updatePost(postId, postObj) {
         let validationRes = this.validatePostObj(postObj);
-        if(!validationRes.success) {
+        if (!validationRes.success) {
             return validationRes;
         }
         return await this.PUT(`/posts/${postId}`, postObj, true);
@@ -205,8 +205,7 @@ class API {
             },
         };
         let validationRes = this.validateUserObj(user);
-        if(!validationRes.success)
-        {
+        if (!validationRes.success) {
             return validationRes;
         }
         return await this.POST(`/users`, user);
@@ -223,193 +222,223 @@ class API {
         };
 
         let validationRes = this.validateUserObj(user);
-        if(!validationRes.success)
-        {
+        if (!validationRes.success) {
             return validationRes;
         }
-        
-        let res = await this.PATCH(`/users/${this.getLoggedInUser()}`, user, true);
 
-        if(res.success) {
-            let newAuthStr = this.generateAuthStr(username,password);
+        let res = await this.PATCH(
+            `/users/${this.getLoggedInUser()}`,
+            user,
+            true
+        );
+
+        if (res.success) {
+            let newAuthStr = this.generateAuthStr(username, password);
             this.authStr = newAuthStr;
-            localStorage.setItem("authStr",newAuthStr);
+            localStorage.setItem('authStr', newAuthStr);
         }
- 
+
         return res;
     }
 
     async deleteUser() {
-        if(!this.getLoggedInUser()) {
+        if (!this.getLoggedInUser()) {
             return this.createErrorFromMsg('Du bist nicht eingeloggt');
         }
         let res = await this.DELETE(`/users/${this.getLoggedInUser()}`, true);
-        if(res.success) {
+        if (res.success) {
             this.logout();
         }
         return res;
     }
 
-
     generateAuthStr(username, password) {
-        return "Basic " + btoa(`${username}:${password}`);
+        return 'Basic ' + btoa(`${username}:${password}`);
     }
 
     getLoggedInUser() {
-        return localStorage.getItem("username");
+        return localStorage.getItem('username');
     }
 
     getPassword() {
-        let authStr = localStorage.getItem("authStr");
-        if(!authStr)
-        {
+        let authStr = localStorage.getItem('authStr');
+        if (!authStr) {
             return false;
         }
 
-        let usernameAndPassword = atob(authStr.replace('Basic ','')).split(':');
+        let usernameAndPassword = atob(authStr.replace('Basic ', '')).split(
+            ':'
+        );
         let password = usernameAndPassword[1];
         return password;
     }
 
     validateUserObj(user) {
-        if(user.username.length < 4 || user.username.length > 10)
-        {
-            return this.createErrorFromMsg('Der Nutzername muss zwischen 4 und 10 Zeichen lang sein.');
+        if (user.username.length < 4 || user.username.length > 10) {
+            return this.createErrorFromMsg(
+                'Der Nutzername muss zwischen 4 und 10 Zeichen lang sein.'
+            );
         }
 
         let pattern = /^[A-Za-z0-9]*$/;
-        if(!pattern.test(user.username))
-        {
-            return this.createErrorFromMsg('Der Nutzername darf nur die Zeichen a-z, A-Z und 0-9 entahlten.');
+        if (!pattern.test(user.username)) {
+            return this.createErrorFromMsg(
+                'Der Nutzername darf nur die Zeichen a-z, A-Z und 0-9 entahlten.'
+            );
         }
 
-        if(user.profile.displayName.length < 4 || user.profile.displayName.length > 30)
-        {
-            return this.createErrorFromMsg('Der Anzeigename muss zwischen 4 und 30 Zeichen lang sein.');
+        if (
+            user.profile.displayName.length < 4 ||
+            user.profile.displayName.length > 30
+        ) {
+            return this.createErrorFromMsg(
+                'Der Anzeigename muss zwischen 4 und 30 Zeichen lang sein.'
+            );
         }
 
-        if(user.profile.description && (user.profile.description.length < 1 || user.profile.description.length > 300))
-        {
-            return this.createErrorFromMsg('Die Beschreibung muss zwischen 1 und 300 Zeichen lang sein.');
+        if (
+            user.profile.description &&
+            (user.profile.description.length < 1 ||
+                user.profile.description.length > 300)
+        ) {
+            return this.createErrorFromMsg(
+                'Die Beschreibung muss zwischen 1 und 300 Zeichen lang sein.'
+            );
         }
 
-        if(user.password.length < 6 || user.password.lengt > 12)
-        {
-            return this.createErrorFromMsg('Das Passwort muss zwischen 6 und 12 Zeichen lang sein.');
+        if (user.password.length < 6 || user.password.lengt > 12) {
+            return this.createErrorFromMsg(
+                'Das Passwort muss zwischen 6 und 12 Zeichen lang sein.'
+            );
         }
 
         let hasLetter = false;
         let hasNumber = false;
         let letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let numbers = '0123456789';
-        for(let char of user.password) {
-            if(letters.includes(char)) {
+        for (let char of user.password) {
+            if (letters.includes(char)) {
                 hasLetter = true;
             }
-            if(numbers.includes(char))
-            {
+            if (numbers.includes(char)) {
                 hasNumber = true;
             }
         }
 
-        if(!hasLetter || !hasNumber)
-        {
-            return this.createErrorFromMsg('Das Passwort muss mindestens einen Buchstabe und eine Zahl enthalten.');
+        if (!hasLetter || !hasNumber) {
+            return this.createErrorFromMsg(
+                'Das Passwort muss mindestens einen Buchstabe und eine Zahl enthalten.'
+            );
         }
 
         return {
-            success: true
-        }
+            success: true,
+        };
     }
 
     validatePostObj(postObj) {
-        if(!postObj.title) {
+        if (!postObj.title) {
             return this.createErrorFromMsg('Bitte gib einen Titel ein.');
         }
-        if(postObj.title.length < 4 || postObj.title.length > 60) {
-            return this.createErrorFromMsg('Der Titel deines Posts muss zwishcne 4 und 60 Zeichen lang sein.');
+        if (postObj.title.length < 4 || postObj.title.length > 60) {
+            return this.createErrorFromMsg(
+                'Der Titel deines Posts muss zwishcne 4 und 60 Zeichen lang sein.'
+            );
         }
 
         let hasContent = false;
 
         let mainContentArrayRes = this.validateContentArray(postObj.content);
-        if(!mainContentArrayRes.success) {
+        if (!mainContentArrayRes.success) {
             return mainContentArrayRes;
         }
 
-        if(postObj.content.length) {
+        if (postObj.content.length) {
             hasContent = true;
         }
 
-        for(let section of postObj.sections) {
-            if(!section.sectionTitle) {
-                return this.createErrorFromMsg('Alle Sections müssen einen Titel haben');
+        for (let section of postObj.sections) {
+            if (!section.sectionTitle) {
+                return this.createErrorFromMsg(
+                    'Alle Sections müssen einen Titel haben'
+                );
             }
-            if(section.sectionTitle.length < 4 || section.sectionTitle.length > 60) {
-                return this.createErrorFromMsg('Alle Section-Titel müssen zwischne 4 und 60 Zeichen lang sein');
+            if (
+                section.sectionTitle.length < 4 ||
+                section.sectionTitle.length > 60
+            ) {
+                return this.createErrorFromMsg(
+                    'Alle Section-Titel müssen zwischne 4 und 60 Zeichen lang sein'
+                );
             }
             let contentArrayRes = this.validateContentArray(section.content);
-            if(!contentArrayRes.success) {
+            if (!contentArrayRes.success) {
                 return contentArrayRes;
             }
 
-            if(section.content?.length) {
+            if (section.content?.length) {
                 hasContent = true;
             }
         }
 
-        if(!hasContent) {
+        if (!hasContent) {
             return this.createErrorFromMsg('Der Post muss Content haben.');
         }
 
         return {
-            success: true
-        }
-        
+            success: true,
+        };
     }
 
     validateContentArray(contentArray) {
-        if(!contentArray) {
+        if (!contentArray) {
             return {
-                success: true
-            }
+                success: true,
+            };
         }
-        for(let contentEl of contentArray) {
-            if(contentEl.__type == 'img') {
-                if(!contentEl.caption) {
-                    return this.createErrorFromMsg('Bitte gib für alle Bilder eine Caption ein.');
+        for (let contentEl of contentArray) {
+            if (contentEl.__type == 'img') {
+                if (!contentEl.caption) {
+                    return this.createErrorFromMsg(
+                        'Bitte gib für alle Bilder eine Caption ein.'
+                    );
                 }
-                if(contentEl.caption.length < 10 || contentEl.caption.length > 100) {
-                    return this.createErrorFromMsg('Die Caption aller Bilder muss zwischen 10 und 100 Zeichen lang sein');
+                if (
+                    contentEl.caption.length < 10 ||
+                    contentEl.caption.length > 100
+                ) {
+                    return this.createErrorFromMsg(
+                        'Die Caption aller Bilder muss zwischen 10 und 100 Zeichen lang sein'
+                    );
                 }
-                if(!this.isValidImageUrl(contentEl.url)) {
-                    return this.createErrorFromMsg('Alle Bilder müssen als Quelle eine gültige HTTPS-URL haben.');
+                if (!this.isValidImageUrl(contentEl.url)) {
+                    return this.createErrorFromMsg(
+                        'Alle Bilder müssen als Quelle eine gültige HTTPS-URL haben.'
+                    );
                 }
-                
-            }
-            else if(contentEl.__type == 'text') {
-                if(!contentEl.data) {
-                    return this.createErrorFromMsg('Kein Textelement darf leer sein.');
+            } else if (contentEl.__type == 'text') {
+                if (!contentEl.data) {
+                    return this.createErrorFromMsg(
+                        'Kein Textelement darf leer sein.'
+                    );
                 }
             }
         }
         return {
-            success: true
-        }
+            success: true,
+        };
     }
 
     // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
     isValidImageUrl(string) {
         let url;
         try {
-          url = new URL(string);
+            url = new URL(string);
         } catch (_) {
-          return false;  
+            return false;
         }
-        return url.protocol === "https:";
+        return url.protocol === 'https:';
     }
 }
 
-const api = new API("jr8au9hp");
-// const api = new API('12345678');
-
+const api = new API('jr8au9hp');

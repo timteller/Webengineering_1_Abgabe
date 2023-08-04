@@ -5,18 +5,18 @@ function getTemplateById(id) {
 
 function contentElToDomEl(contentEl) {
     if (!contentEl.__type) {
-        let el = document.createElement("p");
-        el.textContent = "(contentElToDomEl) ERROR: INVALID contentEl";
+        let el = document.createElement('p');
+        el.textContent = '(contentElToDomEl) ERROR: INVALID contentEl';
         return el;
     }
-    if (contentEl.__type === "text") {
-        let el = document.createElement("p");
-        el.classList.add("textContentElement");
+    if (contentEl.__type === 'text') {
+        let el = document.createElement('p');
+        el.classList.add('textContentElement');
         el.textContent = contentEl.data;
         return el;
-    } else if (contentEl.__type === "img") {
-        let el = document.createElement("img");
-        el.classList.add("imageContentElement");
+    } else if (contentEl.__type === 'img') {
+        let el = document.createElement('img');
+        el.classList.add('imageContentElement');
         el.src = contentEl.url;
         el.alt = contentEl.caption;
         return el;
@@ -25,14 +25,14 @@ function contentElToDomEl(contentEl) {
 
 function textContent(text) {
     return {
-        __type: "text",
+        __type: 'text',
         data: text,
     };
 }
 
 function imageContent(url, caption) {
     return {
-        __type: "img",
+        __type: 'img',
         url: url,
         caption: caption,
     };
@@ -56,7 +56,7 @@ function getUid() {
     let now = new Date();
     let timestamp = now.getTime();
     let randomNumber = Math.ceil(Math.random() * 0xffffffff);
-    return timestamp.toString(16) + "-" + randomNumber.toString(16);
+    return timestamp.toString(16) + '-' + randomNumber.toString(16);
 }
 
 function getUrlParams() {
@@ -79,14 +79,14 @@ function showPopup(title, text, buttons = [], hasCloseBtn = true) {
     </div>`;
 
     let popup = htmlToElement(html);
-    let popupContent = popup.querySelector(".popup");
-    let closeBtn = popup.querySelector(".popup-close-btn");
-    let popupTitle = popup.querySelector(".popup-title");
-    let popupText = popup.querySelector(".popup-text");
-    let popupButtons = popup.querySelector(".popup-buttons");
+    let popupContent = popup.querySelector('.popup');
+    let closeBtn = popup.querySelector('.popup-close-btn');
+    let popupTitle = popup.querySelector('.popup-title');
+    let popupText = popup.querySelector('.popup-text');
+    let popupButtons = popup.querySelector('.popup-buttons');
 
     if (hasCloseBtn) {
-        closeBtn.addEventListener("click", (e) => {
+        closeBtn.addEventListener('click', (e) => {
             e.preventDefault();
             popup.remove();
         });
@@ -100,10 +100,10 @@ function showPopup(title, text, buttons = [], hasCloseBtn = true) {
     let retButtons = {};
     for (let key in buttons) {
         let btn = buttons[key];
-        let button = document.createElement("button");
-        button.classList.add("button");
+        let button = document.createElement('button');
+        button.classList.add('button');
         retButtons[key] = button;
-        if (typeof btn !== "object") {
+        if (typeof btn !== 'object') {
             button.textContent = btn;
         } else {
             button.textContent = btn.text;
@@ -125,17 +125,17 @@ function showPopup(title, text, buttons = [], hasCloseBtn = true) {
     return popup;
 }
 
-function showMsg(msg, openTime = 1000, type = "", target = null) {
-    let currentMessages = document.querySelectorAll(".overlay-msg");
+function showMsg(msg, openTime = 1000, type = '', target = null) {
+    let currentMessages = document.querySelectorAll('.overlay-msg');
     for (let m of currentMessages) {
-        m.classList.remove("open");
+        m.classList.remove('open');
         setTimeout(() => {
             m.remove();
-        },1000);
+        }, 1000);
     }
 
     let msgEl = document.createElement('div');
-    msgEl.classList.add('overlay-msg')
+    msgEl.classList.add('overlay-msg');
     msgEl.textContent = msg;
 
     if (type) {
@@ -148,33 +148,32 @@ function showMsg(msg, openTime = 1000, type = "", target = null) {
 
     target.appendChild(msgEl);
     setTimeout(() => {
-        msgEl.classList.add("open");
+        msgEl.classList.add('open');
     }, 1);
 
     setTimeout(() => {
-        msgEl.classList.remove("open");
+        msgEl.classList.remove('open');
         setTimeout(() => {
             msgEl.remove();
-        },1000);
+        }, 1000);
     }, openTime);
 }
 
 function startLoadingAnimation(target = null) {
-    let loadingEl = document.createElement("div");
-    loadingEl.classList.add("loading-overlay");
+    let loadingEl = document.createElement('div');
+    loadingEl.classList.add('loading-overlay');
     let id = getUid();
     // console.log(target);
-    loadingEl.id = id; 
+    loadingEl.id = id;
     if (!target) {
         target = document.body;
         loadingEl.style.position = 'fixed';
         loadingEl.style.height = '100vh';
     }
     if (!target.style.position) {
-        target.style.position = "relative";
+        target.style.position = 'relative';
     }
-    if(typeof(window.loadingAnimationStartRequired) !== 'object')
-    {
+    if (typeof window.loadingAnimationStartRequired !== 'object') {
         window.loadingAnimationStartRequired = {};
     }
     window.loadingAnimationStartRequired[id] = true;
@@ -189,11 +188,10 @@ function startLoadingAnimation(target = null) {
 }
 
 function endLoadingAnimation(id) {
-    if(!id) {
+    if (!id) {
         let loadingAnimations = document.querySelectorAll('.loading-overlay');
         // console.log(loadingAnimations);
-        for(let el of loadingAnimations)
-        {
+        for (let el of loadingAnimations) {
             el.remove();
         }
         return true;
@@ -204,7 +202,7 @@ function endLoadingAnimation(id) {
         return false;
     }
 
-    if (!loadingEl.classList.contains("loading-overlay")) {
+    if (!loadingEl.classList.contains('loading-overlay')) {
         return false;
     }
 
@@ -213,27 +211,27 @@ function endLoadingAnimation(id) {
 }
 
 function htmlToElement(html) {
-    let el = document.createElement("div");
+    let el = document.createElement('div');
     el.innerHTML = html;
     // console.log(el.firstElementChild);
     return el.firstElementChild;
 }
 
 function convertRelativePath(path) {
-    let pathParts = window.location.href.split("/");
+    let pathParts = window.location.href.split('/');
     let filenamePats = pathParts[pathParts.length - 1].split('?');
     let filename = filenamePats[0];
-    if (path.startsWith("../")) {
-        if (filename === "index.html" || filename === '') {
+    if (path.startsWith('../')) {
+        if (filename === 'index.html' || filename === '') {
             return path.substring(1, path.length);
         } else {
             return path;
         }
-    } else if (path.startsWith("./")) {
-        if (filename === "index.html" || filename === '') {
+    } else if (path.startsWith('./')) {
+        if (filename === 'index.html' || filename === '') {
             return path;
         } else {
-            return "." + path;
+            return '.' + path;
         }
     }
     return path;
@@ -242,15 +240,15 @@ function convertRelativePath(path) {
 function contentElementToDomElement(el) {
     let domEL;
     switch (el.__type) {
-        case "img":
+        case 'img':
             if (!el.url) return null;
-            domEL = document.createElement("img");
-            domEL.classList.add("post-img");
+            domEL = document.createElement('img');
+            domEL.classList.add('post-img');
             domEL.alt = el.caption;
             domEL.src = el.url;
             break;
-        case "text":
-            domEL = document.createElement("p");
+        case 'text':
+            domEL = document.createElement('p');
             domEL.textContent = el.data;
             break;
     }
@@ -277,32 +275,32 @@ function getPostPreviewCard(post) {
     );
 
     for (let el of content) {
-        if (el.__type == "img") {
+        if (el.__type == 'img') {
             firstImg = contentElementToDomElement(el);
             break;
         }
     }
 
     for (let el of content) {
-        if (el.__type == "text") {
+        if (el.__type == 'text') {
             firstText = contentElementToDomElement(el);
             break;
         }
     }
 
-    let card = document.createElement("div");
-    card.classList.add("post-card");
+    let card = document.createElement('div');
+    card.classList.add('post-card');
     card.tabIndex = 0;
 
-    let title = document.createElement("h1");
+    let title = document.createElement('h1');
     title.textContent = post.title;
     card.appendChild(title);
 
     if (firstText) {
-        let words = firstText.textContent.split(" ");
-        firstText.textContent = "";
+        let words = firstText.textContent.split(' ');
+        firstText.textContent = '';
         for (let i = 0; i < Math.min(50, words.length); i++) {
-            firstText.textContent += words[i] + " ";
+            firstText.textContent += words[i] + ' ';
         }
 
         firstText.innerHTML += ` <a href="${postUrl}">... weiterlesen</a>`;
@@ -311,8 +309,8 @@ function getPostPreviewCard(post) {
 
     if (firstImg) {
         card.appendChild(firstImg);
-        let overlay = document.createElement("div");
-        overlay.classList.add("post-img-overlay");
+        let overlay = document.createElement('div');
+        overlay.classList.add('post-img-overlay');
         card.appendChild(overlay);
     }
 
@@ -323,17 +321,17 @@ function getPostPreviewCard(post) {
 
     card.addEventListener('keypress', (e) => {
         e.preventDefault();
-        if(e.key === 'Enter') {
+        if (e.key === 'Enter') {
             window.location = postUrl;
         }
-    })
+    });
     return card;
 }
 
 function getButton(text, classes) {
-    let btn = document.createElement("button");
+    let btn = document.createElement('button');
     btn.textContent = text;
-    btn.classList.add("button");
+    btn.classList.add('button');
     for (let c of classes) {
         btn.classList.add(c);
     }
