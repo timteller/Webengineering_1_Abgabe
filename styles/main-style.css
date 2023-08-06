@@ -15,6 +15,9 @@ html {
     --dark-yellow: rgb(169, 146, 0);
     --light: rgb(238, 238, 238);
     --shadow-col: rgba(57, 62, 70, 0.3);
+    --shadow-col-inverse: rgba(255,255,255, 0.3);
+    --list-table-hover-brightness: 0.7;
+
 
     --header-bg-col: var(--dark);
     --nav-hover-col: var(--lighter-dark);
@@ -61,7 +64,7 @@ html.high-contrast {
     --light-yellow: var(--yellow);
     --dark-yellow: var(--yellow);
     --light: white;
-    --shadow-col: rgba(57, 62, 70, 0.3);
+    --shadow-col: rgba(57, 62, 70, 0.4);
 
     --button-border: 1px solid white;
     --subheadline-opacity: 1;
@@ -76,6 +79,8 @@ html.dark-mode {
     --nav-hover-col: var(--dark);
     --shadow-col: rgba(255, 255, 255, 0.3);
     --link-col: var(--light-blue);
+    --shadow-col-inverse: rgba(0,0,0, 0.3);
+    --list-table-hover-brightness: 1.5;
 }
 
 html.dark-mode.high-contrast {
@@ -348,6 +353,7 @@ footer a {
     margin: 5px;
     resize: none;
     background-color: var(--content-container-bg-col);
+    color: var(--main-text-col);
 }
 
 .content-card {
@@ -614,10 +620,10 @@ footer a {
     height: 50%;
     object-fit: cover;
     z-index: 1;
+    
 }
 
 .post-img-overlay {
-    content: ' ';
     position: absolute;
     top: 0;
     left: 0;
@@ -625,7 +631,7 @@ footer a {
     height: 50%;
     z-index: 2;
     background-image: linear-gradient(
-        rgba(255, 255, 255, 0.7) 40%,
+        var(--shadow-col-inverse) 40%,
         var(--content-container-bg-col)
     );
 }
@@ -656,7 +662,7 @@ footer a {
 
 .list-table tr:hover {
     cursor: pointer;
-    backdrop-filter: brightness(0.7);
+    backdrop-filter: brightness(var(--list-table-hover-brightness));
 }
 
 .list-table tr:nth-child(2n) {
